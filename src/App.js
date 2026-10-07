@@ -49,7 +49,7 @@ const App = () => {
   return (
     <Router>
       <div className="container mt-4">
-        <h1 className="mb-4">Project Management</h1>
+        <h1 className=" text-center mb-0">Project Management</h1>
 
         {isAuthenticated && (
           <nav className="nav mb-4">
