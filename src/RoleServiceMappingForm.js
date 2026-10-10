@@ -20,7 +20,7 @@ const RoleServiceMappingForm = () => {
 
       try {
         // Fetch roles and services
-        const rolesResponse = await axios.get('http://localhost:8080/role/get/all', {
+        const rolesResponse = await axios.get(`${process.env.REACT_APP_API_URL}/role/get/all`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -28,7 +28,7 @@ const RoleServiceMappingForm = () => {
 
         setRoles(rolesResponse.data);
 
-        const servicesResponse = await axios.get('http://localhost:8080/service/get/all', {
+        const servicesResponse = await axios.get(`${process.env.REACT_APP_API_URL}/service/get/all`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -73,7 +73,7 @@ const RoleServiceMappingForm = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:8080/rsc/assign', roleServiceMappingDTO, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/rsc/assign`, roleServiceMappingDTO, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

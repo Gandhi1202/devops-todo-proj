@@ -26,7 +26,7 @@ const CreateRoleForm = () => {
       }
 
       // Send the POST request to create a new role
-      const response = await axios.post('http://localhost:8080/role/post', newRole, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/role/post`, newRole, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },

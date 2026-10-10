@@ -23,11 +23,11 @@ const TaskList = ({ user }) => {
                 }
 
                 const taskResponse = user.roleId === 1 // Assuming roleId 1 is for "ADMIN"
-                    ? await axios.get('http://localhost:8080/tasks/all', { headers: { Authorization: `Bearer ${token}` } })
-                    : await axios.get(`http://localhost:8080/tasks/user/${user.id}`, { headers: { Authorization: `Bearer ${token}` } });
+                    ? await axios.get(`${process.env.REACT_APP_API_URL}/tasks/all`, { headers: { Authorization: `Bearer ${token}` } })
+                    : await axios.get(`${process.env.REACT_APP_API_URL}/tasks/user/${user.id}`, { headers: { Authorization: `Bearer ${token}` } });
 
-                const projectResponse = await axios.get('http://localhost:8080/projects/all', { headers: { Authorization: `Bearer ${token}` } });
-                const userResponse = await axios.get('http://localhost:8080/user/get/all', { headers: { Authorization: `Bearer ${token}` } });
+                const projectResponse = await axios.get(`${process.env.REACT_APP_API_URL}/projects/all`, { headers: { Authorization: `Bearer ${token}` } });
+                const userResponse = await axios.get(`${process.env.REACT_APP_API_URL}/user/get/all`, { headers: { Authorization: `Bearer ${token}` } });
 
                 setTasks(taskResponse.data);
                 const projectData = projectResponse.data.reduce((acc, project) => {
@@ -55,7 +55,7 @@ const TaskList = ({ user }) => {
             let filtered = [];
 
             if (user.roleId === 1 && selectedUserId) {
-                const userTasksResponse = await axios.get(`http://localhost:8080/tasks/user/${selectedUserId}`, {
+                const userTasksResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tasks/user/${selectedUserId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 filtered = userTasksResponse.data;
@@ -82,7 +82,7 @@ const TaskList = ({ user }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:8080/tasks/download/excel?start=${startDate}&end=${endDate}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/tasks/download/excel?start=${startDate}&end=${endDate}`, {
                 responseType: 'blob',
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -116,7 +116,7 @@ const TaskList = ({ user }) => {
                 dateTime: task.dateTime,
             };
 
-            await axios.put(`http://localhost:8080/tasks/update/${task.id}`, updatedTask, {
+            await axios.put(`${process.env.REACT_APP_API_URL}/tasks/update/${task.id}`, updatedTask, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTasks((prevTasks) =>
@@ -150,7 +150,7 @@ const TaskList = ({ user }) => {
         if (!confirmDelete) return;
 
         try {
-            await axios.delete(`http://localhost:8080/tasks/delete/${taskId}`, {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/tasks/delete/${taskId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTasks((prevTasks) => prevTasks.filter(task => task.id !== taskId));

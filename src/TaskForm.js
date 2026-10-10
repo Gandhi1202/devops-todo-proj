@@ -16,7 +16,7 @@ const TaskForm = () => {
             }
 
             try {
-                const response = await axios.get('http://localhost:8080/user/get/all', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/get/all`, {
                     headers: {
                         'Authorization': `Bearer ${token}`, // Include the token in the request headers
                         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const TaskForm = () => {
             }
 
             try {
-                const response = await axios.get('http://localhost:8080/projects/all', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/projects/all`, {
                     headers: {
                         'Authorization': `Bearer ${token}`, // Include the token in the request headers
                         'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ const TaskForm = () => {
         console.log("Submitting tasks:", validTasks); // Log the tasks to be submitted
     
         try {
-            const response = await axios.post('http://localhost:8080/tasks', validTasks, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/tasks`, validTasks, {
                 headers: {
                     'Authorization': `Bearer ${token}`, // Include the token in the headers
                     'Content-Type': 'application/json',

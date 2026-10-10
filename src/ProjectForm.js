@@ -19,7 +19,7 @@ const ProjectForm = () => {
             }
 
             try {
-                const response = await axios.get('http://localhost:8080/user/get/all', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/get/all`, {
                     headers: {
                         'Authorization': `Bearer ${token}`, // Include the token in the request headers
                         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const ProjectForm = () => {
     
         try {
             const token = localStorage.getItem('token'); // Make sure token is included
-            const response = await axios.post('http://localhost:8080/projects', projectData, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/projects`, projectData, {
                 headers: {
                     'Authorization': `Bearer ${token}`, // Include the token
                     'Content-Type': 'application/json',

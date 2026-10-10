@@ -21,7 +21,7 @@ const RegisterPage = () => {
     const fetchRoles = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:8080/role/get/all'); // Adjust the endpoint as necessary
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/role/get/all`); // Adjust the endpoint as necessary
         setRoles(response.data); // Assuming response.data is an array of role objects
       } catch (error) {
         setError('Error fetching roles. Please try again later.');
@@ -63,7 +63,7 @@ const RegisterPage = () => {
 
     setError(''); // Clear any previous errors
     try {
-      const response = await axios.post('http://localhost:8080/user/register', formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/register`, formData, {
         headers: {
           'Content-Type': 'application/json',
         },

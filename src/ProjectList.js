@@ -48,9 +48,9 @@ const ProjectList = ({ user }) => {
             }
 
             if (user.roleId === 1) { // Assuming roleId 1 corresponds to "ADMIN"
-                response = await axios.get('http://localhost:8080/projects/all', config);
+                response = await axios.get(`${process.env.REACT_APP_API_URL}/projects/all`, config);
             } else if (user.roleId === 2 && user.id) { // Assuming roleId 2 corresponds to "USER"
-                response = await axios.get(`http://localhost:8080/projects/user/${user.id}`, config);
+                response = await axios.get(`${process.env.REACT_APP_API_URL}/projects/user/${user.id}`, config);
             } else {
                 setError("Invalid user role or user ID.");
                 setLoading(false);
@@ -73,7 +73,7 @@ const ProjectList = ({ user }) => {
     const fetchUsers = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:8080/user/get/all', {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/get/all`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -106,12 +106,12 @@ const ProjectList = ({ user }) => {
             };
     
             // First API call: Filter projects by date range
-            const dateResponse = await axios.get(`http://localhost:8080/projects/filter?startDate=${startDate}&endDate=${endDate}`, config);
+            const dateResponse = await axios.get(`${process.env.REACT_APP_API_URL}/projects/filter?startDate=${startDate}&endDate=${endDate}`, config);
             let filteredProjects = dateResponse.data;
     
             // If a user is selected, filter the results by user ID
             if (selectedUserId) {
-                const userResponse = await axios.get(`http://localhost:8080/projects/user/${selectedUserId}`, config);
+                const userResponse = await axios.get(`${process.env.REACT_APP_API_URL}/projects/user/${selectedUserId}`, config);
                 const userProjects = userResponse.data;
     
                 // Filter the projects by intersection of both lists
@@ -142,7 +142,7 @@ const ProjectList = ({ user }) => {
     const handleUpdate = async () => {
         const token = localStorage.getItem('token');
         try {
-            await axios.put(`http://localhost:8080/projects/update/${editingProjectId}`, {
+            await axios.put(`${process.env.REACT_APP_API_URL}/projects/update/${editingProjectId}`, {
                 name: editName,
                 dateTime: editDateTime,
             }, {
@@ -161,7 +161,7 @@ const ProjectList = ({ user }) => {
         if (window.confirm("Are you sure you want to delete this project?")) {
             const token = localStorage.getItem('token');
             try {
-                await axios.delete(`http://localhost:8080/projects/delete/${id}`, {
+                await axios.delete(`${process.env.REACT_APP_API_URL}/projects/delete/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -178,7 +178,7 @@ const ProjectList = ({ user }) => {
     const handleApprove = async (id) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.post(`http://localhost:8080/projects/approve/${id}`, {}, {
+            await axios.post(`${process.env.REACT_APP_API_URL}/projects/approve/${id}`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -193,7 +193,7 @@ const ProjectList = ({ user }) => {
     const handleDeny = async (id) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.post(`http://localhost:8080/projects/deny/${id}`, {}, {
+            await axios.post(`${process.env.REACT_APP_API_URL}/projects/deny/${id}`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

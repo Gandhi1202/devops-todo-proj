@@ -18,7 +18,7 @@ const CreateServiceForm = () => {
       const serviceData = { serviceName };
 
       // Send the POST request to create a new service
-      const response = await axios.post('http://localhost:8080/service/post', serviceData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/service/post`, serviceData, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming JWT for authentication

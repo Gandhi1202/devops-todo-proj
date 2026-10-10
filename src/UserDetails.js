@@ -8,7 +8,7 @@ const UserDetails = () => {
         const fetchUserDetails = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get('http://localhost:8080/user/details', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/details`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setUserDetails(response.data);
