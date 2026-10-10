@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/role/**").hasRole("1")
                         .requestMatchers("/service/**").hasRole("1")
                         .requestMatchers("/rsc/**").hasRole("1")
-                        .requestMatchers("/user/login", "/user/register").permitAll() // Public access
+                        .requestMatchers("/user/login", "/user/register","/user/get/all").permitAll() // Public access
                     .requestMatchers("/projects/all", "/projects/{id}", "/projects/user/{userId}").hasAnyRole("ADMIN","USER","GUEST","1","2","3") // Both roles can access
                         .requestMatchers(HttpMethod.POST, "/projects").hasRole("1") // Only ADMIN can create projects
                         .requestMatchers(HttpMethod.PUT, "/projects/update/{id}").hasRole("1") // Only ADMIN can update projects
