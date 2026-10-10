@@ -20,6 +20,10 @@ docker run -d \
 
 Step 3: Check Spring Security
 If you use Spring Security, CORS must also be enabled in its existing SecurityFilterChain:
+ @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://44.223.100.236:3001","http://localhost:3000")); // Adjust this as needed
 
 Step 4: Rebuild and redeploy
 After making the changes, rebuild the backend image and recreate the backend container using your existing database network and environment settings.
